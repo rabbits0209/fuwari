@@ -6,10 +6,11 @@
 
     .author-box {
         text-align: center;
-        padding: 20px;
-        height: auto;
-        border-bottom: 2px solid #ddd;
-        /* 分割线 */
+        padding: 40px 20px 30px;
+        border-bottom: 2px solid #eee;
+        background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        position: relative;
+        overflow: hidden;
     }
     
     .author-img img {
