@@ -3,7 +3,6 @@ title: 地球online更新
 published: 2023-08-24
 description: 这篇文章介绍了地球online游戏即将进行版本更新和开服的消息。更新和开服时间分别为8月24日的00:00和12:00。
 tags: [日本, 核废水]
-category: Examples
 draft: false
 ---
 
