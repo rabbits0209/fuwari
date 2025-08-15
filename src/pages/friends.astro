@@ -1,0 +1,181 @@
+---
+
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+import { getEntry } from "astro:content";
+import { render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+
+const friendsPost = await getEntry("spec", "friends");
+
+if (!friendsPost) {
+        throw new Error("Friends page content not found");
+}
+
+const { Content } = await render(friendsPost);
+
+const items = [
+	{
+		title: "Astro",
+		imgurl: "https://avatars.githubusercontent.com/u/44914786?s=48&v=4",
+		desc: "The web framework for content-driven websites. ⭐️ Star to support our work!",
+		siteurl: "https://github.com/withastro/astro",
+		tags: ["框架"],
+	},
+	{
+		title: "兔兔博客🇨🇳",
+		imgurl: "https://flies.tutublog.eu.org/file/1737866643546_b_be918e46b6b687eb9d93f97cbb321512.jpg",
+		desc: "万事都要全力以赴，包括开心",
+		siteurl: "https://www.真寻.top/",
+		tags: ["推荐网站"],
+	},
+	{
+		title: "Fomalhaut🥝",
+		imgurl: "https://www.fomal.cc/assets/avatar.webp",
+		desc: "Future is now 🍭🍭🍭",
+		siteurl: "https://www.fomal.cc/",
+		tags: ["推荐网站"],
+	},
+	{
+		title: "酩酊街",
+		imgurl: "https://cdn.bonjour.bio/11493/2024-11-11_21-35-32.jpeg",
+		desc: "不说话，装高手。",
+		siteurl: "https://omoi.fun/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "空巷",
+		imgurl: "https://www.kxyr.top/assets/img/logo.jpg",
+		desc: "万人空巷",
+		siteurl: "https://www.kxyr.top/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "No22",
+		imgurl: "https://no22.top/static/img/avatar.png",
+		desc: "Have a try!",
+		siteurl: "https://blog.no22.top/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "浪海导航",
+		imgurl: "https://www.langhai.net/assets/images/langhai-logo.png",
+		desc: "浪海导航 ~ 收录各种类型的博客",
+		siteurl: "https://www.langhai.net/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "喵喵博客志",
+		imgurl: "https://cdn.helingqi.com/avatar/90d65b07462dd2b0cb32ba3e3187759d?s=200&r=&d=404",
+		desc: "记录喵喵美好生活",
+		siteurl: "https://www.mmbkz.cn/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "無名小栈",
+		imgurl: "https://pic.imgdb.cn/item/65bc52b0871b83018a06699d.png",
+		desc: "分享技术与科技生活",
+		siteurl: "https://blog.imsyy.top/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "朽丘秋雨",
+		imgurl: "https://cdn.koxiuqiu.cn/koxiuqiu/img/favicon.webp",
+		desc: "一定会和喜欢的人在夏日夜晚牵手慢步",
+		siteurl: "https://koxiuqiu.cn",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "XingJiのBlog",
+		imgurl: "https://i.p-i.vip/47/20240920-66ed7b168c38c.jpg",
+		desc: "迄今所有人生都大写着失败，但不妨碍我继续向前✨",
+		siteurl: "https://love.xingji.fun/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "GTX690战术核显卡导弹的猫窝",
+		imgurl: "https://logo.nekopara.uk/logo.jpg",
+		desc: "一个过气UP的博客，喜欢计算机技术，希望交个朋友",
+		siteurl: "https://nekopara.uk",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "小霜南风",
+		imgurl: "https://viper3.top/static/img/logo.png",
+		desc: "散落一些碎花，凝结一些轻痕",
+		siteurl: "https://blog.viper3.top/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "KASUIEの次元",
+		imgurl: "https://kasuie.cc/avatar.webp",
+		desc: "喜欢温柔的人",
+		siteurl: "https://kasuie.cc",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "Ariasakaの小窝",
+		imgurl: "https://bu.dusays.com/2024/12/05/67517bcf104da.png",
+		desc: "人有悲欢离合 月有阴晴圆缺",
+		siteurl: "https://blog.yaria.top",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "bbb-lsy07",
+		imgurl: "https://i.bbb-lsy07.sbs/upload/quality_restoration_20250211145207618.JPG",
+		desc: "科技激荡人文，洞见智慧本真。",
+		siteurl: "https://i.bbb-lsy07.sbs/",
+		tags: ["宝藏网站"],
+	},
+	{
+		title: "Fubuki",
+		imgurl: "https://fubuki.dynv6.net/images/fox.png",
+		desc: "Foxy cat, my waifu",
+		siteurl: "https://fubuki.dynv6.net/",
+		tags: ["迷失在茫茫人海中的人"],
+	},
+]
+
+---
+<MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 my-4">
+                {items.map((item) => (   
+                    <div class="flex flex-nowrap items-stretch h-28 gap-4 rounded-[var(--radius-large)]">
+                        <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-900">
+                            <img src={item.imgurl} alt="站点头像" class="w-full h-full object-cover">
+                        </div>
+                        <div class="grow w-full">
+                            <div class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 mb-1">{item.title}</div>
+                            <div class="text-50 text-sm font-medium">{item.desc}</div>
+                            <div class:list={["items-center", {"flex": true, "hidden md:flex" : false}]}>
+                                <div class="flex flex-row flex-nowrap items-center">
+                                    {(item.tags && item.tags.length > 0) && item.tags.map((tag,i) => (  
+                                    <div class:list={[{"hidden": i==0}, "mx-1.5 text-[var(--meta-divider)] text-sm" ]}>
+                                        /
+                                    </div>  
+                                    <span class="transition text-50 text-sm font-medium">
+                                        {tag}
+                                    </span>))}
+                                    {!(item.tags && item.tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
+                                </div>
+                            </div>
+                        </div>
+                        <a href={item.siteurl} target="_blank" rel="noopener noreferrer"class="flex btn-regular w-[3.25rem] rounded-lg bg-[var(--enter-btn-bg)] hover:bg-[var(--enter-btn-bg-hover)] active:bg-[var(--enter-btn-bg-active)] active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="transition text-[var(--primary)] text-4xl mx-auto iconify iconify--material-symbols" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12.6 12L8.7 8.1q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.6 4.6q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.6 4.6q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                ))}
+            </div>  
+            <Markdown class="mt-2">
+                <Content />
+            </Markdown>
+        </div>
+    </div>
+
+</MainGridLayout>
