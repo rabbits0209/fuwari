@@ -2,12 +2,15 @@
 	/* 头像卡片 */
 	.author-img {
         position: relative; /* 设置相对定位 */
+        display: inline-block;
+        margin: 0 auto;
     }
 
     .author-box {
-        position-img: relative;
-        display: inline-block;
-        margin: 0 auto:
+        text-align: center;
+        padding: 20px;
+        height: auto;
+        border-bottom: 2px solid #ddd;
         /* 分割线 */
     }
     
