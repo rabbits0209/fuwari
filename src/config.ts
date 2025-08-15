@@ -47,7 +47,7 @@ export const navBarConfig: NavBarConfig = {
 		{
 			name: "GitHub",
 			url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
+			external: false, // Show an external link icon and will open in a new tab
 		},
 	],
 };
@@ -60,7 +60,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "QQ",
 			icon: "fa6-brands:qq",
-			url: "https://qm.qq.com/q/Uy9kmDXHYO",
+			url: "https://qm.qq.com/q/4zSBJ0QwxO",
 		},
 		{
 			name: "Email",
