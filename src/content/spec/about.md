@@ -5,10 +5,9 @@
     }
 
     .author-box {
-        text-align: center;
-        padding: 20px;
-        height: auto;
-        border-bottom: 2px solid #ddd;
+        position-img: relative;
+        display: inline-block;
+        margin: 0 auto:
         /* 分割线 */
     }
     
