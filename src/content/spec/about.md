@@ -1,9 +1,113 @@
 <style>
-	/* 头像卡片 */
-	.author-img {
-        position: relative; /* 设置相对定位 */
-        display: inline-block;
+<style>
+    /* 头像居中优化 */
+    .author-img {
+        position: relative;
+        display: flex;
+        justify-content: center;
         margin: 0 auto;
+    }
+
+    /* 移动端优化 - 整体调整 */
+    @media (max-width: 870px) {
+        /* 调整section高度和间距 */
+        .section {
+            height: auto;
+            min-height: 200px;
+            margin: 15px 5px;
+            padding: 10px;
+        }
+        
+        /* 显示文字内容 */
+        .section .content {
+            width: 100%;
+            margin: 10px;
+            padding: 5px;
+            overflow: visible; /* 确保内容可见 */
+        }
+        
+        /* 调整个人信息布局 */
+        .info-columns .row {
+            flex-direction: column;
+        }
+        
+        .info-columns .column {
+            width: 100%;
+            margin-left: 0;
+        }
+        
+        /* 调整底部站点网格 */
+        .wrapper .site-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        
+        .wrapper .site-grid .site-item {
+            height: 150px;
+        }
+        
+        /* 调整标题大小 */
+        .content h2 {
+            font-size: 1.3rem;
+        }
+        
+        /* 调整文字大小 */
+        .section li, .section p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* 调整作者区域 */
+        .author-box {
+            padding: 15px 5px;
+        }
+        
+        .author-box .large {
+            font-size: 1.5rem;
+        }
+        
+        .author-box .small {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* 更小屏幕优化 */
+    @media (max-width: 480px) {
+        /* 单列布局 */
+        .wrapper .site-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        /* 进一步调整文字大小 */
+        .content h2 {
+            font-size: 1.2rem;
+        }
+        
+        .section li, .section p {
+            font-size: 0.85rem;
+        }
+        
+        /* 头像大小调整 */
+        .author-img img {
+            width: 120px;
+            height: 120px;
+        }
+        
+        .green-dot {
+            right: calc(50% - 55px);
+            bottom: 10px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+    
+    /* 确保所有元素在移动端可见 */
+    .section .content, 
+    .info-columns, 
+    .wrapper {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     .author-box {
