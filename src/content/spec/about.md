@@ -1,445 +1,639 @@
-<style>
-<style>
-    /* 头像居中优化 */
-    .author-img {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
-    }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兔兔的个人空间</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
 
-    /* 移动端优化 - 整体调整 */
-    @media (max-width: 870px) {
-        /* 调整section高度和间距 */
-        .section {
-            height: auto;
-            min-height: 200px;
-            margin: 15px 5px;
-            padding: 10px;
+        :root {
+            --primary: #6a5af9;
+            --secondary: #d66efd;
+            --accent: #ff7aa2;
+            --light: #f8f9fa;
+            --dark: #2c2c2c;
+            --gray: #6c757d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
-        
-        /* 显示文字内容 */
-        .section .content {
-            width: 100%;
-            margin: 10px;
-            padding: 5px;
-            overflow: visible; /* 确保内容可见 */
-        }
-        
-        /* 调整个人信息布局 */
-        .info-columns .row {
-            flex-direction: column;
-        }
-        
-        .info-columns .column {
-            width: 100%;
-            margin-left: 0;
-        }
-        
-        /* 调整底部站点网格 */
-        .wrapper .site-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        
-        .wrapper .site-grid .site-item {
-            height: 150px;
-        }
-        
-        /* 调整标题大小 */
-        .content h2 {
-            font-size: 1.3rem;
-        }
-        
-        /* 调整文字大小 */
-        .section li, .section p {
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-        
-        /* 调整作者区域 */
-        .author-box {
-            padding: 15px 5px;
-        }
-        
-        .author-box .large {
-            font-size: 1.5rem;
-        }
-        
-        .author-box .small {
-            font-size: 0.9rem;
-        }
-    }
 
-    /* 更小屏幕优化 */
-    @media (max-width: 480px) {
-        /* 单列布局 */
-        .wrapper .site-grid {
-            grid-template-columns: 1fr;
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
         }
-        
-        /* 进一步调整文字大小 */
-        .content h2 {
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 头部区域 */
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: var(--card-shadow);
+        }
+
+        .status-dot {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            border: 3px solid white;
+            bottom: 15px;
+            right: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .header p {
             font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
         }
-        
-        .section li, .section p {
-            font-size: 0.85rem;
+
+        /* 主要内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
         }
-        
-        /* 头像大小调整 */
-        .author-img img {
-            width: 120px;
-            height: 120px;
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
-        
-        .green-dot {
-            right: calc(50% - 55px);
-            bottom: 10px;
-            width: 16px;
-            height: 16px;
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
-    }
-    
-    /* 确保所有元素在移动端可见 */
-    .section .content, 
-    .info-columns, 
-    .wrapper {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
 
-    .author-box {
-        text-align: center;
-        padding: 20px;
-        height: auto;
-        border-bottom: 2px solid #ddd;
-        /* 分割线 */
-    }
-    
-    .author-img img {
-        border-radius: 50%; /* 显示为圆形 */
-        width: 150px; /* 宽度设置 */
-        height: 150px; /* 高度保持一致，否则就成椭圆了 */
-        margin-bottom: 10px;
-    }
-    
-    .green-dot {
-    	position: absolute;
-    	right: calc(50% - 67px);
-    	bottom: 13px;
-    	width: 20px; /* 小圆点的宽度 */
-    	height: 20px; /* 小圆点的高度 */
-    	background-color: rgb(40, 231, 139); /* 小圆点的颜色，感觉很好看，对照着QQ的颜色搞的 */
-    	border-radius: 50%; /* 使小圆点变成圆形 */
-    }
-    
-    /* 文本格式，全局 */
-    .content h2 {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    
-    /* 设置每一节宽度，高度，长度等等 */
-    .content .column {
-    	margin-top: 4px;
-        margin-bottom: 4px;
-        width: 65%;
-        margin-left: 20px;
-    }
-    
-    /* 给第一格个人信息进行适配 */
-    .content .info-columns {
-        margin: 10px 0;
-    }
-    
-    /* 第一格的个人信息，我使用了表格，为了显示更多信息的同时不空出大部分地方，你们自行选择 */
-    .content .row {
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    /* 每一节通用格式 */
-    .section {
-        display: flex;
-        padding: 10px;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: none;
-        margin-top: 20px;
-        margin: 20px 10px 0 10px;
-        border-radius: 10px;
-        background-color: white;
-        height: 250px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* 夜间适配，改变背景和相关阴影部分 */
-    [data-theme=dark] .section {
-        background-color: #2c2c2c;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    
-    /* 右图左文样式，左边为row，因为是默认的所以不需要指定 */
-    .section.right {
-        flex-direction: row-reverse;
-    }
-    
-    /* 节内图片所在位置相关格式，这里是因为我开了fancybox，也就是点击预览大图的效果，使图片被一个a所包裹，如果你关了请自行将该内容添加到下面的img中，其他位置对应调整 */
-    .section a {
-    	width: 45%;
-    	height: 100%;
-    	transition: transform 0.5s ease; /* 添加过渡效果 */
-    
-    }
-    
-    /* 节内A标签内的图片，占满a标签，并不拉伸，使用覆盖，自适应大小 */
-    .section img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-    
-    /* 在鼠标悬停在 .section 上时，放大图片 */
-    .section:hover a {
-    	transform: scale(1.10); /* 将图片放大10% */
-    }
-    
-    /* 设置放大只在当图片没有消失时，否则这个宽度会覆盖掉设置的小时候为100%的设定 */
-    @media (min-width: 870px) {
-    	/* 图像在右边的节，当鼠标放入，适当向左偏移，造成好像被图像挤过去的视觉效果 */
-    	.section.right:hover .content {
-    		margin-left: 10px;
-    	}
-    	/* 通用，因为文字是靠左的，改变宽度就被挤过去了 */
-    	.section:hover .content {
-    		width: 50%;
-    		width: 50%;
-    	}
-    }
-    
-    /* 通用文字部分基础设置 */
-    .section .content {
-        width: 55%;
-        margin: 20px 20px;
-        max-height: 100%;
-        overflow: hidden; /* 超出部分不好看，我给隐藏了，看不见也比超出强，不过这个可以通过修改各种宽度高度进行个性适配 */
-        text-overflow: ellipsis;
-        transition: width 0.5s ease, margin-left 0.3s ease; /* 添加过渡效果 */
-    }
-    
-    /* 最下方的一堆个人站点 */
-    .wrapper {
-    	text-align: center; /* 文字居中 */
-        padding: 10px;
-        margin: 20px 10px 0 10px;
-        border-radius: 10px;
-        background-color: white;
-        height: auto;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* 四个大字 */
-    .wrapper .label {
-        margin: 20px 20px;
-    }
-    
-    /* 网格相关链接布局样式 */
-    .wrapper .site-grid {
-        margin-top: 10px;
-        border-radius: 8px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 一行四块 */
-        gap: 10px; /* 块之间的间隙 */
-        width: 100%;
-        height: auto; /* 宽度自动填充 */
-    }
-    
-    /* 每个站点块的样式 */
-    .wrapper .site-grid .site-item {
-    	z-index: 1;
-        border-radius: 10px;
-        position: relative;
-        width: 100%;/* 宽度自动填充 */
-        height: 200px;/* 设置块的高度 */
-        background-size: cover;/* 背景图片填充整个块 */
-        background-position: center;/* 背景图片居中 */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        overflow: hidden; /* 使超出边框的内容隐藏 */
-        transition: transform 0.3s ease-in-out, z-index 0.3s ease-in-out;
-    }
-
-
-​    
-    /* 动画效果，鼠标放上去时背景图片放大的动画 */
-    @media (min-width: 870px) {
-    	.wrapper .site-grid .site-item:hover {
-    		transform: scale(1.2); /* 放大倍数 */
-    		z-index: 2;
-    	}
-    }
-    
-    /* 块中的字覆盖层样式 */
-    .wrapper .site-overlay {
-        position: absolute;
-        inset: 0; /* 将 top, right, bottom, left 都设为 0 */
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.5); /* 初始为透明背景 */
-        transition: background 0.6s, color 0.6s; /* 背景过渡效果 */
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        font: bold 25px sans-serif; /* 根据需求更改字体大小 */
-        color: #000000; /* 根据需求更改字体颜色，默认是黑 */
-    }
-    
-    /* 鼠标悬停时的样式 */
-    .wrapper .site-item:hover .site-overlay {
-        background: rgba(0, 0, 0, 0.5); /* 白底变黑 */
-        color: #ffffff; /* 黑字变白 */
-    }
-    
-    /* 夜间适配 */
-    [data-theme=dark] .wrapper {
-        background-color: #2c2c2c; /* 这是我全局的夜间统一色，你们自己看 */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    
-    /* 夜间鼠标悬停动效适配 */
-    [data-theme=dark] .wrapper .site-item:hover .site-overlay {
-        background: rgba(255, 255, 255, 0.5);
-        color: #000000;
-    }
-    
-    /* 夜间卡片背景适配，和白天是相反的 */
-    [data-theme=dark] .wrapper .site-overlay {
-        background: rgba(0, 0, 0, 0.5);
-        color: #ffffff;
-    }
-    
-    /* 窄屏适配 */
-    @media (max-width: 870px) {/* 当页面宽度小于870像素时 */
-        /* 不显示图片 */
-    	.section a {
-    		display: none;
-    	}
-    	
-    	/* 将位置留给文字 */
-    	.section .content {
-    		width: 100%;
-    	}
-    	/* 高度自己调整，因为窄屏视野没有那么大，部分节窄一点宽一点不影响，但是最小仍然是之前设置的值，这个需要你们自己改 */
-    	.section {
-    	    height: auto;
-    	    min-height: 250px;
-    	}
-    	
-    	/* 下方链接到现在显示为两列，要不然挤得不行 */
-    	.wrapper .site-grid {
-            grid-template-columns: repeat(2, 1fr);
-            /* 一行显示2个块 */
-            grid-auto-rows: 200px;
-            /* 保持行高一致 */
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
         }
-    }
-    
-    /* 当页面宽度小于480像素时，我们的表格成为1列 */
-    @media (max-width: 560px) {
-        .wrapper .site-grid {
-            grid-template-columns: repeat(1, 1fr);
-            /* 一行显示1个块 */
-            grid-auto-rows: 200px;
-            /* 保持行高一致 */
+
+        .card-header i {
+            font-size: 1.5rem;
+            margin-right: 12px;
         }
-    }
-</style>
 
-<div class="author-box">
-    <div class="author-img">
-        <img class="no-lightbox" src="https://flies.tutublog.eu.org/file/1737866643546_b_be918e46b6b687eb9d93f97cbb321512.jpg">
-        <div class="green-dot"></div>
-    </div>
-    <div class="image-dot"></div>
-    <p class="p center logo large">关于我</p>
-    <p class="p center small">熙熙攘攘，做个人间过客</p>
-</div>
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
 
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
 
-<div class="section left">
-    <img src="https://t.mwm.moe/ysmp">
-    <div class="content">
-        <div class="info-columns">
-            <h2>个人信息</h2>
-            <ul>
-                <div class="row">
-                    <div class="column">
-                        <li>姓名: 兔兔</li>
-                        <li>住址: 广东省</li>
-                        <li>学校: 不知名的小学校</li>
-                    </div>
-                    <div class="column">
-                        <li>性别: 颜控</li>
-                        <li>年级: 二年级</li>
-                        <li>擅长: 人工智能，网站开发</li>
-                    </div>
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .card-body ul {
+            list-style-type: none;
+        }
+
+        .card-body li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .card-body li:last-child {
+            border-bottom: none;
+        }
+
+        .card-body li i {
+            color: var(--primary);
+            margin-right: 12px;
+            min-width: 24px;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* 技能标签 */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(to right, #e0e7ff, #d1e0fd);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .footer h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .footer h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .social-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%);
+        }
+
+        .social-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 30px;
+        }
+
+        .social-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .social-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .avatar {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-image {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                padding: 20px;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .section-title h2 {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header class="header">
+            <div class="avatar-container">
+                <img src="https://flies.tutublog.eu.org/file/1737866643546_b_be918e46b6b687eb9d93f97cbb321512.jpg" alt="兔兔的头像" class="avatar">
+                <div class="status-dot"></div>
+            </div>
+            <h1>兔兔的个人空间</h1>
+            <p>熙熙攘攘，做个人间过客</p>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <!-- 个人信息卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user"></i>
+                    <h2>个人信息</h2>
                 </div>
-                <li>邮箱: 1742305143@qq.com</li>
-            </ul>
+                <div class="card-image">
+                    <img src="https://t.mwm.moe/ysmp" alt="个人信息背景">
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <i class="fas fa-signature"></i>
+                            <span>姓名：兔兔</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>住址：广东省</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>学校：不知名的小学校</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-venus-mars"></i>
+                            <span>性别：颜控</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-book"></i>
+                            <span>年级：二年级</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-star"></i>
+                            <span>擅长：人工智能，网站开发</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>邮箱：1742305143@qq.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 教育背景卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-university"></i>
+                    <h2>教育背景</h2>
+                </div>
+                <div class="card-image">
+                    <img src="https://t.mwm.moe/ys" alt="教育背景">
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <i class="fas fa-school"></i>
+                            <span>学校：野鸡大学</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-book-open"></i>
+                            <span>主要专业课程：干饭.jpg (101.5分)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-medal"></i>
+                            <span>荣誉奖项：干饭大赛一等奖</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-calendar"></i>
+                            <span>入学时间：2023年9月</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 主要项目卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-project-diagram"></i>
+                    <h2>主要项目</h2>
+                </div>
+                <div class="card-image">
+                    <img src="https://t.mwm.moe/ysz" alt="项目背景">
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <i class="fas fa-blog"></i>
+                            <span>Hexo 博客系统开发</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-robot"></i>
+                            <span>GitHub Action 自动打包工具</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>搜狗词库自动转谷歌工具</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-comments"></i>
+                            <span>基于 PHP 的即时通讯系统</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>基于 GitHub 的自动签到系统</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 技能卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-laptop-code"></i>
+                    <h2>技能专长</h2>
+                </div>
+                <div class="card-image">
+                    <img src="https://t.mwm.moe/ycy" alt="技能背景">
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <i class="fas fa-language"></i>
+                            <span>语言技能：汉语、英语</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-code"></i>
+                            <span>专业技能：</span>
+                        </li>
+                    </ul>
+                    <div class="skills">
+                        <div class="skill-tag">C++</div>
+                        <div class="skill-tag">Java</div>
+                        <div class="skill-tag">Python</div>
+                        <div class="skill-tag">Linux</div>
+                        <div class="skill-tag">HTML/CSS</div>
+                        <div class="skill-tag">JavaScript</div>
+                        <div class="skill-tag">PHP</div>
+                        <div class="skill-tag">Git</div>
+                    </div>
+                    <ul>
+                        <li>
+                            <i class="fas fa-utensils"></i>
+                            <span>通用技能：干饭（专家级）</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 自我评价卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-star"></i>
+                    <h2>自我评价</h2>
+                </div>
+                <div class="card-image">
+                    <img src="https://t.mwm.moe/ysmp" alt="自我评价背景">
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <i class="fas fa-brain"></i>
+                            <span>思想上乐观开朗，乐于助人，具有团队协作精神及创新意识</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-briefcase"></i>
+                            <span>工作上极富责任心与信念感，对待工作认真负责，有较强的组织管理及动手能力</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-heart"></i>
+                            <span>生活上积极向上，热爱美食与编程，善于发现生活中的美好</span>
+                        </li>
+                        <li style="border-top: 2px dashed #6a5af9; margin-top: 15px; padding-top: 15px;">
+                            <i class="fas fa-check-double"></i>
+                            <strong>总结：人嘎嘎好！</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 兴趣爱好卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-heart"></i>
+                    <h2>兴趣爱好</h2>
+                </div>
+                <div class="card-image">
+                    <img src="https://t.mwm.moe/ys" alt="兴趣爱好背景">
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <i class="fas fa-code"></i>
+                            <span>编程开发：喜欢探索新技术</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-book"></i>
+                            <span>阅读：技术书籍和科幻小说</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-music"></i>
+                            <span>音乐：喜欢轻音乐和电子音乐</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-utensils"></i>
+                            <span>美食：探索各种美食是我的最爱</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-gamepad"></i>
+                            <span>游戏：偶尔玩休闲游戏放松</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<div class="section right">
-    <img src="https://t.mwm.moe/ys">
-    <div class="content">
-        <h2>教育背景</h2>
-        <ul>
-            <li>学校: 野鸡大学</li>
-            <li>主要专业课程: 干饭.jpg(101.5)</li>
-        </ul>
+        <!-- 底部区域 -->
+        <footer class="footer">
+            <h2>个人站点与联系方式</h2>
+            <div class="social-grid">
+                <div class="social-card">
+                    <div class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>查看我的开源项目</p>
+                </div>
+                
+                <div class="social-card">
+                    <div class="social-icon">
+                        <i class="fab fa-blog"></i>
+                    </div>
+                    <h3>个人博客</h3>
+                    <p>阅读我的技术文章</p>
+                </div>
+                
+                <div class="social-card">
+                    <div class="social-icon">
+                        <i class="fab fa-qq"></i>
+                    </div>
+                    <h3>QQ</h3>
+                    <p>1742305143</p>
+                </div>
+                
+                <div class="social-card">
+                    <div class="social-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>邮箱</h3>
+                    <p>1742305143@qq.com</p>
+                </div>
+            </div>
+        </footer>
     </div>
-</div>
 
-<div class="section right">
-    <img src="https://t.mwm.moe/ysz">
-    <div class="content">
-        <h2>主要项目</h2>
-        <ul>
-            <li>hexo 博客</li>
-            <li>GitHub action 自动打包</li>
-            <li>搜狗词库自动转谷歌</li>
-            <li>基于 php 实现即时通讯</li>
-            <li>基于 github 实现自动签到</li>
-        </ul>
-    </div>
-</div>
-
-<div class="section left">
-	<img src="https://t.mwm.moe/ycy">
-    <div class="content">
-        <h2>技能</h2>
-        <ul>
-            <li>语言技能: 汉语</li>
-            <li>专业技能: C++、Java、Python、Linux、HTML、CSS、JavaScript</li>
-            <li>通用技能: 干饭</li>
-        </ul>
-    </div>
-</div>
-
-<div class="section left">
-    <img src="https://t.mwm.moe/ysmp">
-    <div class="content">
-        <h2>自我评价</h2>
-        <ul>
-            <li>思想上乐观开朗，乐于助人，具有团队协作精神及创新意识。</li>
-            <li>工作上极富责任心与信念感，对待工作认真负责，有较强的组织管理及动手能力。</li>
-            <li>总结：人嘎嘎好！</li>
-        </ul>
-    </div>
-</div>
+    <script>
+        // 添加简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
