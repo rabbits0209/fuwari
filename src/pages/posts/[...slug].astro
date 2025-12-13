@@ -108,6 +108,47 @@ const jsonLd = {
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
+            {siteConfig.twikoo?.enable && siteConfig.twikoo.envId && entry.data.comments !== false && (
+                <div class="mb-6 onload-animation">
+                    <div
+                        id="twikoo"
+                        class="mt-4"
+                        data-env-id={siteConfig.twikoo.envId}
+                        data-region={siteConfig.twikoo.region || ""}
+                    ></div>
+                    <script is:inline>
+                        if (typeof window !== "undefined") {
+                            const initTwikoo = () => {
+                                const twikooEl = document.getElementById("twikoo");
+                                if (window.twikoo && twikooEl) {
+                                    const envId = twikooEl.getAttribute("data-env-id") || "";
+                                    const region = twikooEl.getAttribute("data-region") || "";
+                                    if (envId) {
+                                        window.twikoo.init({
+                                            envId,
+                                            el: "#twikoo",
+                                            region: region || undefined,
+                                            path: window.location.pathname,
+                                        });
+                                    }
+                                }
+                            };
+
+                            if (!document.querySelector('script[data-twikoo]')) {
+                                const script = document.createElement('script');
+                                script.src = 'https://cdn.staticfile.org/twikoo/1.6.38/twikoo.all.min.js';
+                                script.defer = true;
+                                script.setAttribute('data-twikoo', 'true');
+                                script.addEventListener('load', initTwikoo);
+                                document.body.appendChild(script);
+                            } else {
+                                initTwikoo();
+                            }
+                        }
+                    </script>
+                </div>
+            )}
+
         </div>
     </div>
 

@@ -36,6 +36,11 @@ export const siteConfig: SiteConfig = {
 		   sizes: '128x128',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		 }
 	],
+	twikoo: {
+		enable: true,
+		envId: "https://twkioo.xn--eet944d.top/",
+		region: "",
+	},
 };
 
 export const navBarConfig: NavBarConfig = {
