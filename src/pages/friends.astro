@@ -8,6 +8,7 @@ import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { siteConfig } from "../config";
+import { friends } from "../data/friends";
 
 const friendsPost = await getEntry("spec", "friends");
 
@@ -17,120 +18,12 @@ if (!friendsPost) {
 
 const { Content } = await render(friendsPost);
 
-const items = [
-	{
-		title: "Astro",
-		imgurl: "https://avatars.githubusercontent.com/u/44914786?s=48&v=4",
-		desc: "The web framework for content-driven websites. ⭐️ Star to support our work!",
-		siteurl: "https://github.com/withastro/astro",
-		tags: ["框架"],
-	},
-	{
-		title: "兔兔博客🇨🇳",
-		imgurl: "https://flies.tutublog.eu.org/file/1737866643546_b_be918e46b6b687eb9d93f97cbb321512.jpg",
-		desc: "万事都要全力以赴，包括开心",
-		siteurl: "https://www.真寻.top/",
-		tags: ["推荐网站"],
-	},
-	{
-		title: "Fomalhaut🥝",
-		imgurl: "https://www.fomal.cc/assets/avatar.webp",
-		desc: "Future is now 🍭🍭🍭",
-		siteurl: "https://www.fomal.cc/",
-		tags: ["推荐网站"],
-	},
-	{
-		title: "酩酊街",
-		imgurl: "https://cdn.bonjour.bio/11493/2024-11-11_21-35-32.jpeg",
-		desc: "不说话，装高手。",
-		siteurl: "https://omoi.fun/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "空巷",
-		imgurl: "https://www.kxyr.top/assets/img/logo.jpg",
-		desc: "万人空巷",
-		siteurl: "https://www.kxyr.top/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "No22",
-		imgurl: "https://no22.top/static/img/avatar.png",
-		desc: "Have a try!",
-		siteurl: "https://blog.no22.top/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "浪海导航",
-		imgurl: "https://www.langhai.net/assets/images/langhai-logo.png",
-		desc: "浪海导航 ~ 收录各种类型的博客",
-		siteurl: "https://www.langhai.net/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "喵喵博客志",
-		imgurl: "https://cdn.helingqi.com/avatar/90d65b07462dd2b0cb32ba3e3187759d?s=200&r=&d=404",
-		desc: "记录喵喵美好生活",
-		siteurl: "https://www.mmbkz.cn/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "無名小栈",
-		imgurl: "https://pic.imgdb.cn/item/65bc52b0871b83018a06699d.png",
-		desc: "分享技术与科技生活",
-		siteurl: "https://blog.imsyy.top/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "朽丘秋雨",
-		imgurl: "https://cdn.koxiuqiu.cn/koxiuqiu/img/favicon.webp",
-		desc: "一定会和喜欢的人在夏日夜晚牵手慢步",
-		siteurl: "https://koxiuqiu.cn",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "XingJiのBlog",
-		imgurl: "https://i.p-i.vip/47/20240920-66ed7b168c38c.jpg",
-		desc: "迄今所有人生都大写着失败，但不妨碍我继续向前✨",
-		siteurl: "https://love.xingji.fun/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "GTX690战术核显卡导弹的猫窝",
-		imgurl: "https://logo.nekopara.uk/logo.jpg",
-		desc: "一个过气UP的博客，喜欢计算机技术，希望交个朋友",
-		siteurl: "https://nekopara.uk",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "小霜南风",
-		imgurl: "https://img.viper3.top/user/%E7%9A%AE%E5%8D%A1%E5%85%AB.jpg",
-		desc: "散落一些碎花，凝结一些轻痕",
-		siteurl: "https://blog.viper3.top/",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "KASUIEの次元",
-		imgurl: "https://kasuie.cc/avatar.webp",
-		desc: "喜欢温柔的人",
-		siteurl: "https://kasuie.cc",
-		tags: ["宝藏网站"],
-	},
-	{
-		title: "Ariasakaの小窝",
-		imgurl: "https://img.0v0.my/2024/12/05/67517bcf104da.png",
-		desc: "人有悲欢离合 月有阴晴圆缺",
-		siteurl: "https://blog.yaria.top",
-		tags: ["宝藏网站"],
-	},
-]
-
 ---
 <MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 my-4">
-                {items.map((item) => (   
+                {friends.map((item) => (   
                     <div class="flex flex-nowrap items-stretch h-28 gap-4 rounded-[var(--radius-large)]">
                         <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-900">
                             <img src={item.imgurl} alt="站点头像" class="w-full h-full object-cover">
