@@ -195,12 +195,9 @@ const bannerOffset =
 	#waifu {
 		@apply fixed;
 		z-index: 2147483647 !important;
-		bottom: 2.25rem !important;
-		right: 1.75rem !important;
+		bottom: 1.5rem !important;
+		right: 1.5rem !important;
 		left: auto !important;
-		transform: scale(0.7) !important;
-		transform-origin: bottom right !important;
-		pointer-events: none !important;
 	}
 }
 </style>
@@ -585,24 +582,6 @@ if (typeof window !== "undefined") {
 		const script = document.createElement("script");
 		script.src = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js";
 		script.defer = true;
-		script.addEventListener("load", () => {
-			const relocateWaifu = () => {
-				const waifu = document.getElementById("waifu");
-				if (!waifu) {
-					// widget may not be ready yet, try again shortly
-					setTimeout(relocateWaifu, 500);
-					return;
-				}
-				// move to body to avoid being clipped by inner containers
-				document.body.appendChild(waifu);
-				waifu.style.position = "fixed";
-				waifu.style.zIndex = "2147483647";
-				waifu.style.right = "1.75rem";
-				waifu.style.bottom = "2.25rem";
-				waifu.style.left = "auto";
-			};
-			relocateWaifu();
-		});
 		document.body.appendChild(script);
 	};
 
