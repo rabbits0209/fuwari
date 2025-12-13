@@ -7,6 +7,7 @@ import { render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
+import { siteConfig } from "../config";
 
 const friendsPost = await getEntry("spec", "friends");
 
@@ -161,6 +162,47 @@ const items = [
             <Markdown class="mt-2">
                 <Content />
             </Markdown>
+
+            {siteConfig.twikoo?.enable && siteConfig.twikoo.envId && (
+                <div class="mt-4 onload-animation card-base rounded-xl border border-[var(--line-divider)] bg-white/60 dark:bg-black/40 px-4 md:px-6 py-4 md:py-5">
+                    <div
+                        id="twikoo"
+                        class="mt-2 md:mt-3"
+                        data-env-id={siteConfig.twikoo.envId}
+                        data-region={siteConfig.twikoo.region || ""}
+                    ></div>
+                    <script is:inline>
+                        if (typeof window !== "undefined") {
+                            const initTwikoo = () => {
+                                const twikooEl = document.getElementById("twikoo");
+                                if (window.twikoo && twikooEl) {
+                                    const envId = twikooEl.getAttribute("data-env-id") || "";
+                                    const region = twikooEl.getAttribute("data-region") || "";
+                                    if (envId) {
+                                        window.twikoo.init({
+                                            envId,
+                                            el: "#twikoo",
+                                            region: region || undefined,
+                                            path: window.location.pathname,
+                                        });
+                                    }
+                                }
+                            };
+
+                            if (!document.querySelector('script[data-twikoo]')) {
+                                const script = document.createElement('script');
+                                script.src = 'https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js';
+                                script.defer = true;
+                                script.setAttribute('data-twikoo', 'true');
+                                script.addEventListener('load', initTwikoo);
+                                document.body.appendChild(script);
+                            } else {
+                                initTwikoo();
+                            }
+                        }
+                    </script>
+                </div>
+            )}
         </div>
     </div>
 
