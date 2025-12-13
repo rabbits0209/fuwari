@@ -109,10 +109,10 @@ const jsonLd = {
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
             {siteConfig.twikoo?.enable && siteConfig.twikoo.envId && entry.data.comments !== false && (
-                <div class="mb-6 onload-animation">
+                <div class="mb-6 onload-animation card-base rounded-xl border border-[var(--line-divider)] bg-white/60 dark:bg-black/40 px-4 md:px-6 py-4 md:py-5">
                     <div
                         id="twikoo"
-                        class="mt-4"
+                        class="mt-2 md:mt-3"
                         data-env-id={siteConfig.twikoo.envId}
                         data-region={siteConfig.twikoo.region || ""}
                     ></div>
