@@ -193,10 +193,13 @@ const bannerOffset =
 	}
 
 	#waifu {
-		@apply fixed z-[60];
-		bottom: 0.5rem;
-		right: 0.5rem;
+		@apply fixed;
+		z-index: 9999;
+		bottom: 1.5rem;
+		right: 1.25rem;
 		left: auto !important;
+		transform: scale(0.8);
+		transform-origin: bottom right;
 	}
 }
 </style>
