@@ -191,14 +191,6 @@ const bannerOffset =
 	.navbar-hidden {
 		@apply opacity-0 -translate-y-16
 	}
-
-	#waifu {
-		@apply fixed;
-		z-index: 2147483647 !important;
-		bottom: 1.5rem !important;
-		right: 1.5rem !important;
-		left: auto !important;
-	}
 }
 </style>
 
@@ -576,19 +568,43 @@ if (window.swup) {
 
 <script is:inline>
 if (typeof window !== "undefined") {
-	const loadWaifu = () => {
-		if ((window).hasOwnProperty("__waifu_loaded")) return;
-		(window).__waifu_loaded = true;
+	const loadL2D = () => {
+		if ((window).hasOwnProperty("__l2d_loaded")) return;
+		(window).__l2d_loaded = true;
 		const script = document.createElement("script");
-		script.src = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js";
+		script.src = "https://unpkg.com/live2d-widget@3.1.4/lib/L2Dwidget.min.js";
 		script.defer = true;
+		script.onload = () => {
+			if ((window).L2Dwidget) {
+				window.L2Dwidget.init({
+					model: {
+						jsonPath: "https://unpkg.com/live2d-widget-model-z16@1.0.5/assets/z16.model.json",
+					},
+					display: {
+						position: "right",
+						width: 150,
+						height: 280,
+						hOffset: 20,
+						vOffset: -20,
+					},
+					mobile: {
+						show: true,
+						scale: 0.5,
+					},
+					react: {
+						opacityDefault: 0.9,
+						opacityOnHover: 1,
+					},
+				});
+			}
+		};
 		document.body.appendChild(script);
 	};
 
 	if (document.readyState === "loading") {
-		document.addEventListener("DOMContentLoaded", loadWaifu);
+		document.addEventListener("DOMContentLoaded", loadL2D);
 	} else {
-		loadWaifu();
+		loadL2D();
 	}
 }
 </script>
