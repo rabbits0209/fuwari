@@ -16,7 +16,7 @@ export const friends: FriendItem[] = [
   },
   {
     title: "兔兔博客🇨🇳",
-    imgurl: "https://flies.tutublog.eu.org/file/1737866643546_b_be918e46b6b687eb9d93f97cbb321512.jpg",
+    imgurl: "https://tutublog.eu.org/file/1763260619100_Image_1759321330220.jpg",
     desc: "万事都要全力以赴，包括开心",
     siteurl: "https://www.真寻.top/",
     tags: ["推荐网站"],
@@ -58,7 +58,7 @@ export const friends: FriendItem[] = [
   },
   {
     title: "喵喵博客志",
-    imgurl: "https://cdn.helingqi.com/avatar/90d65b07462dd2b0cb32ba3e3187759d?s=200&r=&d=404",
+    imgurl: "https://cn.cravatar.com/avatar/90d65b07462dd2b0cb32ba3e3187759d?s=200&r=&d=404",
     desc: "记录喵喵美好生活",
     siteurl: "https://www.mmbkz.cn/",
     tags: ["宝藏网站"],
@@ -79,7 +79,7 @@ export const friends: FriendItem[] = [
   },
   {
     title: "XingJiのBlog",
-    imgurl: "https://i.p-i.vip/47/20240920-66ed7b168c38c.jpg",
+    imgurl: "https://love.xingji.fun/img/XingJi.jpg",
     desc: "迄今所有人生都大写着失败，但不妨碍我继续向前✨",
     siteurl: "https://love.xingji.fun/",
     tags: ["宝藏网站"],
@@ -93,7 +93,7 @@ export const friends: FriendItem[] = [
   },
   {
     title: "小霜南风",
-    imgurl: "https://img.viper3.top/user/%E7%9A%AE%E5%8D%A1%E5%85%AB.jpg",
+    imgurl: "https://q1.qlogo.cn/g?b=qq&nk=2483523414&s=640",
     desc: "散落一些碎花，凝结一些轻痕",
     siteurl: "https://blog.viper3.top/",
     tags: ["宝藏网站"],
