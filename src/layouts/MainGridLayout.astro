@@ -129,10 +129,10 @@ const showHero = isHomePage && heroConfig && heroConfig.enable;
 							<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v48h-352z" />
 						</defs>
 						<g class="parallax">
-							<use xlink:href="#gentle-wave" x="48" y="0" class="opacity-25 fill-[var(--page-bg)]"></use>
-							<use xlink:href="#gentle-wave" x="48" y="3" class="opacity-50 fill-[var(--page-bg)]"></use>
-							<use xlink:href="#gentle-wave" x="48" y="5" class="opacity-75 fill-[var(--page-bg)]"></use>
-							<use xlink:href="#gentle-wave" x="48" y="7" class="fill-[var(--page-bg)]"></use>
+							<use xlink:href="#gentle-wave" x="48" y="0" class="wave-layer opacity-25 fill-[var(--page-bg)]" style="animation-delay:-2s;animation-duration:7s;"></use>
+							<use xlink:href="#gentle-wave" x="48" y="3" class="wave-layer opacity-50 fill-[var(--page-bg)]" style="animation-delay:-3s;animation-duration:10s;"></use>
+							<use xlink:href="#gentle-wave" x="48" y="5" class="wave-layer opacity-75 fill-[var(--page-bg)]" style="animation-delay:-4s;animation-duration:13s;"></use>
+							<use xlink:href="#gentle-wave" x="48" y="7" class="wave-layer fill-[var(--page-bg)]" style="animation-delay:-5s;animation-duration:20s;"></use>
 						</g>
 					</svg>
 				</div>
@@ -244,6 +244,24 @@ const showHero = isHomePage && heroConfig && heroConfig.enable;
 	opacity: 0;
 	/* 每张约 1.5 秒，整体循环时长由图片数量决定 */
 	animation-name: hero-fade-slide;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+@keyframes wave-move {
+	0% {
+		transform: translate3d(0,0,0);
+	}
+	50% {
+		transform: translate3d(-25px,5px,0);
+	}
+	100% {
+		transform: translate3d(-50px,0,0);
+	}
+}
+
+.wave-layer {
+	animation-name: wave-move;
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 }

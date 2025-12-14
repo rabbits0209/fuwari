@@ -96,12 +96,19 @@ export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
 		LinkPreset.Archive,
-		LinkPreset.About,
-		LinkPreset.Friends,
+		{
+			name: "导航示例",
+			url: "#",
+			children: [
+				{ name: "关于我", url: "/about/" },
+				{ name: "友链", url: "/friends/" },
+				{ name: "标签合集", url: "/tags/" },
+			],
+		},
 		{
 			name: "GitHub",
-			url: "https://github.com/tutuxka", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
+			url: "https://github.com/tutuxka",
+			external: true,
 		},
 	],
 };

@@ -21,26 +21,75 @@ let links: NavBarLink[] = navBarConfig.links.map(
 );
 ---
 <div id="navbar" class="z-50 onload-animation">
-    <div class="absolute h-8 left-0 right-0 -top-8 bg-[var(--card-bg)] transition"></div> <!-- used for onload animation -->
+    <div class="absolute h-8 left-0 right-0 -top-8 bg-transparent transition"></div> <!-- used for onload animation -->
     <div class:list={[
         className,
-        "card-base !overflow-visible max-w-[var(--page-width)] h-[4.5rem] !rounded-t-none mx-auto flex items-center justify-between px-4"]}>
+        "max-w-[var(--page-width)] h-[4.5rem] mx-auto flex items-center justify-between px-4 rounded-2xl mt-2 bg-white/65 dark:bg-black/45 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-[0_10px_30px_rgba(15,23,42,0.35)]"]}>
         <a href={url('/')} class="btn-plain scale-animation rounded-lg h-[3.25rem] px-5 font-bold active:scale-95">
             <div class="flex flex-row text-[var(--primary)] items-center text-md">
                 <Icon name="material-symbols:home-outline-rounded" class="text-[1.75rem] mb-1 mr-2" />
                 {siteConfig.title}
             </div>
         </a>
-        <div class="hidden md:flex">
+        <div class="hidden md:flex items-center gap-1">
             {links.map((l) => {
-                return <a aria-label={l.name} href={l.external ? l.url : url(l.url)} target={l.external ? "_blank" : null}
-                          class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"
-                >
-                    <div class="flex items-center">
-                        {l.name}
-                        {l.external && <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2]"></Icon>}
+                const hasChildren = Array.isArray(l.children) && l.children.length > 0;
+                if (!hasChildren) {
+                    return (
+                        <a
+                            aria-label={l.name}
+                            href={l.external ? l.url : url(l.url)}
+                            target={l.external ? "_blank" : null}
+                            class="relative btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"
+                        >
+                            <div class="flex items-center">
+                                {l.name}
+                                {l.external && (
+                                    <Icon
+                                        name="fa6-solid:arrow-up-right-from-square"
+                                        class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2]"
+                                    ></Icon>
+                                )}
+                            </div>
+                        </a>
+                    );
+                }
+
+                // has children: render dropdown
+                return (
+                    <div class="relative group">
+                        <button
+                            class="btn-plain scale-animation rounded-lg h-11 font-bold px-4 active:scale-95 flex items-center gap-1"
+                            type="button"
+                        >
+                            <span>{l.name}</span>
+                            <Icon
+                                name="material-symbols:keyboard-arrow-down-rounded"
+                                class="text-[1.1rem] transition-transform duration-150 group-hover:rotate-180 text-black/40 dark:text-white/40"
+                            ></Icon>
+                        </button>
+                        <div
+                            class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150 absolute left-1/2 -translate-x-1/2 mt-2 min-w-[9rem] rounded-2xl bg-white/95 dark:bg-black/90 border border-black/5 dark:border-white/10 shadow-[0_18px_45px_rgba(15,23,42,0.45)] py-1.5 z-40"
+                        >
+                            {l.children?.map((child) => (
+                                <a
+                                    aria-label={child.name}
+                                    href={child.external ? child.url : url(child.url)}
+                                    target={child.external ? "_blank" : null}
+                                    class="flex items-center justify-between px-3 py-1.5 text-sm rounded-xl text-black/75 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition"
+                                >
+                                    <span>{child.name}</span>
+                                    {child.external && (
+                                        <Icon
+                                            name="fa6-solid:arrow-up-right-from-square"
+                                            class="text-[0.75rem] text-black/30 dark:text-white/40"
+                                        ></Icon>
+                                    )}
+                                </a>
+                            ))}
+                        </div>
                     </div>
-                </a>;
+                );
             })}
         </div>
         <div class="flex">
