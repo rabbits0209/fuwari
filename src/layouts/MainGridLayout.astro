@@ -40,9 +40,9 @@ const mainPanelTop = siteConfig.banner.enable
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
 	: "5.5rem";
 
-const isHomePage = Astro.url.pathname === "/";
 const heroConfig = siteConfig.hero;
-const showHero = isHomePage && heroConfig && heroConfig.enable;
+// Use hero carousel on all pages when enabled
+const showHero = !!(heroConfig && heroConfig.enable);
 ---
 
 <Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
@@ -62,7 +62,7 @@ const showHero = isHomePage && heroConfig && heroConfig.enable;
 		class="absolute z-10 w-full transition duration-700 overflow-hidden"
 		style={`top: -${BANNER_HEIGHT_EXTEND}vh`}
 	>
-		{showHero && heroConfig ? (
+		{showHero && heroConfig && (
 			<>
 				{/* Carousel mode for multiple images */}
 				<div id="banner" class="relative h-full w-full">
@@ -137,16 +137,6 @@ const showHero = isHomePage && heroConfig && heroConfig.enable;
 					</svg>
 				</div>
 			</>
-		) : (
-			// 其它页面：仍然使用原本的静态 banner
-			<ImageWrapper
-				id="banner"
-				alt="Banner image of the blog"
-				class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
-				src={siteConfig.banner.src}
-				position={siteConfig.banner.position}
-			>
-			</ImageWrapper>
 		)}
 	</div>
 )}
