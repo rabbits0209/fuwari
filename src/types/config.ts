@@ -51,6 +51,15 @@ export type SiteConfig = {
 		enable: boolean;
 		sources: string[];
 	};
+	festivalPopup?: {
+		enable: boolean;
+		birthday?: {
+			enable: boolean;
+			birthYear: number;
+			birthMonth: number; // solar month
+			birthDay: number; // solar day
+		};
+	};
 };
 
 export type Favicon = {

@@ -62,6 +62,15 @@ export const siteConfig: SiteConfig = {
 			"https://t.alcy.cc/ycy",
 		],
 	},
+	festivalPopup: {
+		enable: true,
+		birthday: {
+			enable: true,
+			birthYear: 2010,
+			birthMonth: 2,
+			birthDay: 9,
+		},
+	},
 };
 
 export const navBarConfig: NavBarConfig = {
