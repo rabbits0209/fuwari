@@ -17,14 +17,12 @@ const className = Astro.props.class;
 		<Profile></Profile>
 		{siteConfig.announcement?.enable && siteConfig.announcement.text && (
 			<div class="card-base onload-animation rounded-[var(--radius-large)] px-4 py-3 text-sm" style="animation-delay: 120ms">
-				<div class="flex items-center mb-2 gap-2">
-					<div class="flex items-center gap-1">
-						<div class="h-6 w-6 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] text-xs">
-							★
-						</div>
-						<span class="text-sm font-semibold text-60">公告</span>
-					</div>
-					<div class="h-px flex-1 bg-[var(--line-divider)]/80"></div>
+				<div
+					class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-1 mb-2
+						before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+						before:absolute before:left-[-16px] before:top-[5.5px]"
+				>
+					公告
 				</div>
 				<div class="text-50 leading-relaxed text-base font-medium" set:html={siteConfig.announcement.text}></div>
 			</div>
