@@ -36,7 +36,31 @@ const {
 } = Astro.props;
 const className = Astro.props.class;
 
-const hasCover = image !== undefined && image !== null && image !== "";
+// Determine whether the post has its own cover image
+const hasCustomCover = image !== undefined && image !== null && image !== "";
+
+// When no custom cover, use one of the provided random image APIs.
+// Choose deterministically based on entry id so that each post keeps a stable source.
+const randomCoverApis = [
+	"https://www.loliapi.com/acg/",
+	"https://t.alcy.cc/moez",
+	"https://t.alcy.cc/ycy",
+];
+
+const getStableIndex = (id: string, length: number) => {
+	let hash = 0;
+	for (let i = 0; i < id.length; i++) {
+		hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+	}
+	return hash % length;
+};
+
+const resolvedCoverSrc = hasCustomCover
+	? image
+	: randomCoverApis[getStableIndex(entry.id, randomCoverApis.length)];
+
+// We always have a cover now (either custom or random)
+const hasCover = true;
 
 const coverWidth = "28%";
 
@@ -88,7 +112,7 @@ const { remarkPluginFrontmatter } = await entry.render();
                   class="transition opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 text-white text-5xl">
             </Icon>
         </div>
-        <ImageWrapper src={image} basePath={path.join("content/posts/", getDir(entry.id))} alt="Cover Image of the Post"
+        <ImageWrapper src={resolvedCoverSrc} basePath={path.join("content/posts/", getDir(entry.id))} alt="Cover Image of the Post"
                   class="w-full h-full">
         </ImageWrapper>
     </a>}
@@ -104,7 +128,6 @@ const { remarkPluginFrontmatter } = await entry.render();
         </a>
     }
 </div>
-<div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 md:hidden"></div>
 
 <style define:vars={{coverWidth}}>
 </style>
