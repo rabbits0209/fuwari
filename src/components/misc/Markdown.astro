@@ -13,6 +13,14 @@ const className = Astro.props.class;
     <slot/>
 </div>
 
+<style is:global>
+  /* 强制 markdown 正文里的超长链接在容器内换行，不要溢出 */
+  .custom-md a {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+</style>
+
 <script>
 document.addEventListener("click", function (e: MouseEvent) {
     const target = e.target as Element | null;
