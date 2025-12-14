@@ -69,7 +69,7 @@ const showHero = isHomePage && heroConfig && heroConfig.enable;
 					<ul class="carousel-list h-full w-full">
 						{heroConfig.desktopImages.map((src, index) => (
 							<li
-								class="carousel-item absolute inset-0 transition-all duration-500 opacity-0 scale-110"
+								class="carousel-item absolute inset-0 transition-all duration-500 scale-110"
 								style={`animation-delay: ${index * 3}s`}
 							>
 								{/* Mobile image */}
@@ -240,7 +240,7 @@ const showHero = isHomePage && heroConfig && heroConfig.enable;
 	}
 }
 
-.hero-slide {
+.carousel-item {
 	opacity: 0;
 	/* 约 3 秒一张：6 张图 * 3s = 18s 总周期 */
 	animation: hero-fade-slide 18s linear infinite;
