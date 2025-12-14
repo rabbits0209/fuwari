@@ -54,6 +54,14 @@ export const siteConfig: SiteConfig = {
 			/>
 		`,
 	},
+	randomCover: {
+		enable: true,
+		sources: [
+			"https://www.loliapi.com/acg/",
+			"https://t.alcy.cc/moez",
+			"https://t.alcy.cc/ycy",
+		],
+	},
 };
 
 export const navBarConfig: NavBarConfig = {

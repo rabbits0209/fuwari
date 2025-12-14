@@ -47,6 +47,10 @@ export type SiteConfig = {
 		enable: boolean;
 		text: string;
 	};
+	randomCover?: {
+		enable: boolean;
+		sources: string[];
+	};
 };
 
 export type Favicon = {

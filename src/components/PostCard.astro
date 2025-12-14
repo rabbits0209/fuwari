@@ -5,6 +5,7 @@ import { Icon } from "astro-icon/components";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getDir } from "../utils/url-utils";
+import { siteConfig } from "../config";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
 
@@ -39,28 +40,26 @@ const className = Astro.props.class;
 // Determine whether the post has its own cover image
 const hasCustomCover = image !== undefined && image !== null && image !== "";
 
-// When no custom cover, use one of the provided random image APIs.
-// Choose deterministically based on entry id so that each post keeps a stable source.
-const randomCoverApis = [
-	"https://www.loliapi.com/acg/",
-	"https://t.alcy.cc/moez",
-	"https://t.alcy.cc/ycy",
-];
+// Random cover configuration from site config
+const randomCoverConfig = siteConfig.randomCover;
+const randomCoverSources = randomCoverConfig?.sources ?? [];
+const randomCoverEnabled =
+	!hasCustomCover && !!randomCoverConfig?.enable && randomCoverSources.length > 0;
 
-const getStableIndex = (id: string, length: number) => {
-	let hash = 0;
-	for (let i = 0; i < id.length; i++) {
-		hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
-	}
-	return hash % length;
+// helper to pick a random element from sources when enabled
+const getRandomCoverSrc = () => {
+	const index = Math.floor(Math.random() * randomCoverSources.length);
+	return randomCoverSources[index];
 };
 
 const resolvedCoverSrc = hasCustomCover
 	? image
-	: randomCoverApis[getStableIndex(entry.id, randomCoverApis.length)];
+	: randomCoverEnabled
+		? getRandomCoverSrc()
+		: image;
 
-// We always have a cover now (either custom or random)
-const hasCover = true;
+// Only treat as having cover when custom cover exists or random cover is enabled
+const hasCover = hasCustomCover || randomCoverEnabled;
 
 const coverWidth = "28%";
 
