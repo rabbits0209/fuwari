@@ -3,6 +3,7 @@ import type { MarkdownHeading } from "astro";
 import Categories from "./Categories.astro";
 import Profile from "./Profile.astro";
 import Tag from "./Tags.astro";
+import WidgetLayout from "./WidgetLayout.astro";
 import { siteConfig } from "../../config";
 
 interface Props {
@@ -16,16 +17,14 @@ const className = Astro.props.class;
 	<div class="flex flex-col w-full gap-4 mb-4">
 		<Profile></Profile>
 		{siteConfig.announcement?.enable && siteConfig.announcement.text && (
-			<div class="card-base onload-animation rounded-[var(--radius-large)] px-4 py-3 text-sm" style="animation-delay: 120ms">
-				<div
-					class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-6 mt-4 mb-2
-						before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
-						before:absolute before:left-[-12px] before:top-[5.5px]"
-				>
-					公告
-				</div>
+			<WidgetLayout
+				id="announcement"
+				name="公告"
+				class="onload-animation"
+				style="animation-delay: 120ms"
+			>
 				<div class="text-50 leading-relaxed text-base font-medium" set:html={siteConfig.announcement.text}></div>
-			</div>
+			</WidgetLayout>
 		)}
 	</div>
 	<div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
