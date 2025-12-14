@@ -139,15 +139,15 @@ const bannerOffset =
 		</script>
 
 <!-- Festival & memorial day popup + grayscale effect -->
-<script is:inline>
+<script is:inline define:vars={{
+	FESTIVAL_ENABLE: siteConfig.festivalPopup?.enable ?? true,
+	BIRTHDAY_ENABLE: siteConfig.festivalPopup?.birthday?.enable ?? true,
+	BIRTH_YEAR: siteConfig.festivalPopup?.birthday?.birthYear ?? 2010,
+	BIRTH_MONTH: siteConfig.festivalPopup?.birthday?.birthMonth ?? 2,
+	BIRTH_DAY: siteConfig.festivalPopup?.birthday?.birthDay ?? 9,
+}}>
 if (typeof window !== "undefined") {
-	// Config switches from siteConfig
-	const FESTIVAL_ENABLE = Boolean({siteConfig.festivalPopup?.enable ?? true});
-	const BIRTHDAY_ENABLE = Boolean({siteConfig.festivalPopup?.birthday?.enable ?? true});
-	const BIRTH_YEAR = {siteConfig.festivalPopup?.birthday?.birthYear ?? 2010};
-	const BIRTH_MONTH = {siteConfig.festivalPopup?.birthday?.birthMonth ?? 2};
-	const BIRTH_DAY = {siteConfig.festivalPopup?.birthday?.birthDay ?? 9};
-
+	// Config switches from siteConfig (injected via define:vars above)
 	if (!FESTIVAL_ENABLE) {
 		// feature disabled via config
 		// still define calendarFormatter so code that might rely on it won't crash
