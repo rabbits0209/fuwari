@@ -41,6 +41,10 @@ export const siteConfig: SiteConfig = {
 		envId: "https://twkioo.xn--eet944d.top/",
 		region: "",
 	},
+	announcement: {
+		enable: true,
+		text: "欢迎光临我的博客 🎉\n\n这里会分享我的日常和学习中的收集、整理及总结，希望能对你有所帮助:) 💖",
+	},
 };
 
 export const navBarConfig: NavBarConfig = {

@@ -42,6 +42,11 @@ export type SiteConfig = {
 		envId: string;
 		region?: string;
 	};
+
+	announcement?: {
+		enable: boolean;
+		text: string;
+	};
 };
 
 export type Favicon = {

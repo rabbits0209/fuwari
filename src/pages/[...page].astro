@@ -4,6 +4,7 @@ import Pagination from "../components/control/Pagination.astro";
 import PostPage from "../components/PostPage.astro";
 import { PAGE_SIZE } from "../constants/constants";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { siteConfig } from "../config";
 import { getSortedPosts } from "../utils/content-utils";
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -18,6 +19,25 @@ const len = page.data.length;
 ---
 
 <MainGridLayout>
+    {siteConfig.announcement?.enable && siteConfig.announcement.text && (
+        <div class="onload-animation mb-4">
+            <div class="inline-flex items-center gap-2 rounded-full bg-[var(--card-bg)]/80 px-3 py-1 text-sm border border-[var(--line-divider)] shadow-sm">
+                <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] font-semibold">
+                    公告
+                </span>
+                <span class="text-50 whitespace-pre-wrap">
+                    {siteConfig.announcement.text}
+                </span>
+                <img
+                    src="https://www.vvhan.com/assets/images/tips.gif"
+                    alt="tips"
+                    class="h-5 w-5 rounded-full shadow-sm"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+    )}
+
     <PostPage page={page}></PostPage>
     <Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`}></Pagination>
 </MainGridLayout>
