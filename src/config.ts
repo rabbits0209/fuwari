@@ -49,7 +49,7 @@ export const siteConfig: SiteConfig = {
 			<img
 				src="https://www.vvhan.com/assets/images/tips.gif"
 				alt="tips"
-				style="display:block;width:100%;max-width:100%;border-radius:1rem;margin-top:0.75rem;"
+				style="display:block;width:70%;max-width:260px;border-radius:1rem;margin:0.75rem auto 0;"
 				loading="lazy"
 			/>
 		`,
