@@ -29,6 +29,25 @@ export const siteConfig: SiteConfig = {
 		enable: true, // Display the table of contents on the right side of the post
 		depth: 2, // Maximum heading depth to show in the table, from 1 to 3
 	},
+	hero: {
+		enable: true,
+		desktopImages: [
+			"https://blog.mysqil.com/assets/desktop-banner/1.webp",
+			"https://blog.mysqil.com/assets/desktop-banner/2.webp",
+			"https://blog.mysqil.com/assets/desktop-banner/3.webp",
+			"https://blog.mysqil.com/assets/desktop-banner/4.webp",
+			"https://blog.mysqil.com/assets/desktop-banner/5.webp",
+			"https://blog.mysqil.com/assets/desktop-banner/6.webp",
+		],
+		mobileImages: [
+			"https://blog.mysqil.com/assets/mobile-banner/1.webp",
+			"https://blog.mysqil.com/assets/mobile-banner/2.webp",
+			"https://blog.mysqil.com/assets/mobile-banner/3.webp",
+			"https://blog.mysqil.com/assets/mobile-banner/4.webp",
+			"https://blog.mysqil.com/assets/mobile-banner/5.webp",
+			"https://blog.mysqil.com/assets/mobile-banner/6.webp",
+		],
+	},
 	favicon: [
 		 {
 		   src: 'https://q2.qlogo.cn/headimg_dl?dst_uin=422334238&spec=5',    // Path of the favicon, relative to the /public directory

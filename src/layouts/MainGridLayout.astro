@@ -39,6 +39,10 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 const mainPanelTop = siteConfig.banner.enable
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
 	: "5.5rem";
+
+const isHomePage = Astro.url.pathname === "/";
+const heroConfig = siteConfig.hero;
+const showHero = isHomePage && heroConfig && heroConfig.enable;
 ---
 
 <Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
@@ -52,12 +56,71 @@ const mainPanelTop = siteConfig.banner.enable
 </div>
 
 <!-- Banner -->
-{siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
-    <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
-                  src={siteConfig.banner.src} position={siteConfig.banner.position}
-    >
-    </ImageWrapper>
-</div>}
+{siteConfig.banner.enable && (
+	<div
+		id="banner-wrapper"
+		class={`absolute z-10 w-full transition duration-700 overflow-hidden`}
+		style={`top: -${BANNER_HEIGHT_EXTEND}vh`}
+	>
+		<ImageWrapper
+			id="banner"
+			alt="Banner image of the blog"
+			class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
+			src={siteConfig.banner.src}
+			position={siteConfig.banner.position}
+		>
+		</ImageWrapper>
+
+		{showHero && heroConfig && (
+			<div class="absolute inset-0 flex items-center justify-center px-4">
+				<div
+					class="relative w-full max-w-5xl h-[220px] sm:h-[260px] md:h-[300px] rounded-[2rem] bg-white/15 dark:bg-black/25 backdrop-blur-md border border-white/50/40 dark:border-white/5 overflow-hidden shadow-[0_18px_45px_rgba(15,23,42,0.35)]"
+				>
+					<div class="absolute inset-0 opacity-90">
+						{/* Desktop carousel */}
+						<div class="hidden md:block w-full h-full relative">
+							{heroConfig.desktopImages.map((src, index) => (
+								<img
+									loading="lazy"
+									src={src}
+									alt="Hero background"
+									class="hero-slide absolute inset-0 w-full h-full object-cover"
+									style={`animation-delay: ${index * 6}s`}
+								/>
+							))}
+						</div>
+
+						{/* Mobile carousel */}
+						<div class="block md:hidden w-full h-full relative">
+							{heroConfig.mobileImages.map((src, index) => (
+								<img
+									loading="lazy"
+									src={src}
+									alt="Hero background"
+									class="hero-slide absolute inset-0 w-full h-full object-cover"
+									style={`animation-delay: ${index * 6}s`}
+								/>
+							))}
+						</div>
+
+						<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-black/40"></div>
+					</div>
+
+					<div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 text-white">
+						<h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide mb-3 drop-shadow-[0_4px_16px_rgba(0,0,0,0.35)]">
+							{siteConfig.title}
+						</h1>
+						{siteConfig.subtitle && (
+							<p class="max-w-2xl text-sm sm:text-base md:text-lg text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)]">
+								{siteConfig.subtitle}
+							</p>
+						)}
+					</div>
+				</div>
+			</div>
+		)}
+	</div>
+)}
 
 <!-- Main content -->
 <div class="absolute w-full z-30 pointer-events-none" style={`top: ${mainPanelTop}`}>
@@ -123,3 +186,33 @@ const mainPanelTop = siteConfig.banner.enable
     </div>
 </div>
 </Layout>
+
+<style is:global>
+@keyframes hero-fade-slide {
+	0% {
+		opacity: 0;
+		transform: scale(1.02) translateY(6px);
+	}
+	5% {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+	15% {
+		opacity: 1;
+		transform: scale(1.01) translateY(0);
+	}
+	20% {
+		opacity: 0;
+		transform: scale(1.03) translateY(-4px);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.03) translateY(-4px);
+	}
+}
+
+.hero-slide {
+	opacity: 0;
+	animation: hero-fade-slide 36s linear infinite;
+}
+</style>

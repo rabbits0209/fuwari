@@ -35,6 +35,12 @@ export type SiteConfig = {
 		depth: 1 | 2 | 3;
 	};
 
+	hero?: {
+		enable: boolean;
+		desktopImages: string[];
+		mobileImages: string[];
+	};
+
 	favicon: Favicon[];
 
 	twikoo?: {
