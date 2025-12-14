@@ -65,7 +65,7 @@ const showHero = isHomePage && heroConfig && heroConfig.enable;
 		{showHero && heroConfig ? (
 			<>
 				{/* Carousel mode for multiple images */}
-				<div id="banner-carousel" class="relative h-full w-full">
+				<div id="banner" class="relative h-full w-full">
 					<ul class="carousel-list h-full w-full">
 						{heroConfig.desktopImages.map((src, index) => (
 							<li
