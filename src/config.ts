@@ -43,7 +43,16 @@ export const siteConfig: SiteConfig = {
 	},
 	announcement: {
 		enable: true,
-		text: `欢迎光临我的博客 🎉<br/><br/>这里会分享我的日常和学习中的收集、整理及总结，希望能对你有所帮助:) 💖 <img src="https://www.vvhan.com/assets/images/tips.gif" alt="tips" style="height:1.25rem;width:1.25rem;border-radius:9999px;vertical-align:middle;margin-left:0.25rem;" loading="lazy" />`,
+		text: `
+			<p>欢迎光临我的博客 🎉</p>
+			<p>这里会分享我的日常和学习中的收集、整理及总结，希望能对你有所帮助:) 💖</p>
+			<img
+				src="https://www.vvhan.com/assets/images/tips.gif"
+				alt="tips"
+				style="display:block;width:100%;max-width:100%;border-radius:1rem;margin-top:0.75rem;"
+				loading="lazy"
+			/>
+		`,
 	},
 };
 
